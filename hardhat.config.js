@@ -31,11 +31,14 @@ module.exports = {
   paths: {
     artifacts: './artifacts'
   },
-  defaultNetwork: "rinkeby",
+  defaultNetwork: "hardhat",
   networks: {
     rinkeby: {
       url: INFURA,
       accounts: [`0x${PRIVATE_KEY}`]
+    },
+    hardhat: {
+      chainId: 1337
     }
   },
   etherscan: {
