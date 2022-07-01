@@ -1,9 +1,10 @@
 import { Flex, Text, Avatar, useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import classes from './Posts.module.css'
-import { ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
+import { ArrowUpIcon, ArrowDownIcon, ChatIcon } from '@chakra-ui/icons'
 import Contract from '../../artifacts/contracts/SocialNetwork.sol/SocialNetwork.json';
 import { ethers } from "ethers";
+import Link from "next/link";
 import useEthersProvider from "../../hook/useEthersProvider";
 const contractAddress = "0xfa3f0A9D771861EdDF2c5F2FD5C3aaF32a6fb93f";
 
@@ -86,6 +87,9 @@ const Posts = (props: {getDatas: Function, allPosts: any[]}) => {
                                 <Text>{post.votes.toString()}</Text>
                                 <ArrowUpIcon color="green" ml="0.25rem" onClick={() => vote('up', post.id)} className={classes.buttonVote} />
                                 <ArrowDownIcon color="red" ml="0.25rem" onClick={() => vote('down', post.id)} className={classes.buttonVote} />
+                                <Link href={'posts' + '/' + post.id}>
+                                    <ChatIcon color="blue" ml="0.25rem" className={classes.buttonComments} />
+                                </Link>
                             </Flex>
                         </Flex>
                     )

@@ -5,12 +5,15 @@ import { Flex, Text, Textarea, Button, useToast, Spinner } from "@chakra-ui/reac
 import useEthersProvider from "../hook/useEthersProvider";
 import Contract from '../artifacts/contracts/SocialNetwork.sol/SocialNetwork.json';
 import { ethers } from 'ethers'
+import {useRouter} from 'next/router'
 
 const contractAddress = "0xfa3f0A9D771861EdDF2c5F2FD5C3aaF32a6fb93f";
 
 const createPost: NextPage = () => {
 
     const toast = useToast()
+    const router = useRouter()
+
     const { account, setAccount, provider } = useEthersProvider()
     const [post, setPost] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false) 
@@ -36,6 +39,7 @@ const createPost: NextPage = () => {
                 variant: 'top-accent',
             })
             setIsLoading(false)
+            router.push("/")
         }
         catch {
             toast({
