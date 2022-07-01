@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.15;
 
+// Author : Ben BK 
+// Version 2.0
+
 contract SocialNetwork {
 
     struct post {

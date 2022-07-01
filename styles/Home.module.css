@@ -1,3 +1,7 @@
+body {
+  background: #262626 !important;
+}
+
 .container {
   padding: 0 2rem;
 }
