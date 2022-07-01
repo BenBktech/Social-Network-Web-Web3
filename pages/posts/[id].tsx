@@ -8,7 +8,8 @@ import useEthersProvider from "../../hook/useEthersProvider";
 import { useState, useEffect } from "react";
 import classes from '../../components/Posts/Posts.module.css'
 import { ArrowUpIcon, ArrowDownIcon, ChatIcon } from '@chakra-ui/icons'
-const contractAddress = "0xfa3f0A9D771861EdDF2c5F2FD5C3aaF32a6fb93f";
+import AddComments from '../../components/AddComments/AddComments';
+const contractAddress = "0x7a1d0D760cAB0443d856216a6E01C2735609EcAe";
 
 const Post = () => {
 
@@ -20,6 +21,8 @@ const Post = () => {
 
     const [post, setPost] = useState<any>(null);
     const [comments, setComments] = useState<any[]>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [comment, setComment] = useState<string>('');
 
     useEffect(() => {
         if(account) {
@@ -59,6 +62,12 @@ const Post = () => {
                                     <ArrowDownIcon color="red" ml="0.25rem" onClick={() => vote('down', post.id)} className={classes.buttonVote} />
                                 </Flex>
                             </Flex>
+                            <Flex
+                                justify="center"
+                            >
+                                <Text fontSize='4xl' mt="2rem" mb="1rem">Add comment</Text>
+                            </Flex>
+                            <AddComments comment={comment} setComment={setComment} postId={id} getPostAndComments={getPostAndComments} />
                             <Flex
                                 justify="center"
                             >

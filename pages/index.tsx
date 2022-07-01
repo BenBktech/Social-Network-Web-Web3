@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import Contract from '../artifacts/contracts/SocialNetwork.sol/SocialNetwork.json';
 import { ethers } from 'ethers'
 
-const contractAddress = "0xfa3f0A9D771861EdDF2c5F2FD5C3aaF32a6fb93f";
+const contractAddress = "0x7a1d0D760cAB0443d856216a6E01C2735609EcAe";
 
 const Home: NextPage = () => {
 
@@ -21,8 +21,10 @@ const Home: NextPage = () => {
     if(provider) {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
       const allThePosts = await contract.getAllThePosts();
+      console.log(allThePosts)
       const reversedAllThePosts = [...allThePosts].reverse();
       setAllPosts(reversedAllThePosts)
+      console.log(allPosts?.length);
     }
   }
 
@@ -40,9 +42,11 @@ const Home: NextPage = () => {
         width="100%"
       >
         {account ?
-          allPosts && (
+          allPosts && allPosts.length > 0 ? (
             <Posts getDatas={getDatas} allPosts={allPosts} />
-          ) 
+          ) : (
+            <Text>There are not posts.</Text>
+          )
         : (
           <Text>Please connect your wallet.</Text>
         )}

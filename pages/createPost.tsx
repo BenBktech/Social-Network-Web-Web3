@@ -7,7 +7,7 @@ import Contract from '../artifacts/contracts/SocialNetwork.sol/SocialNetwork.jso
 import { ethers } from 'ethers'
 import {useRouter} from 'next/router'
 
-const contractAddress = "0xfa3f0A9D771861EdDF2c5F2FD5C3aaF32a6fb93f";
+const contractAddress = "0x7a1d0D760cAB0443d856216a6E01C2735609EcAe";
 
 const createPost: NextPage = () => {
 
