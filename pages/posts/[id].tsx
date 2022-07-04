@@ -20,7 +20,7 @@ const Post = () => {
     const { account, setAccount, provider } = useEthersProvider();
 
     const [post, setPost] = useState<any>(null);
-    const [comments, setComments] = useState<any[]>(null)
+    const [comments, setComments] = useState<any[] | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [comment, setComment] = useState<string>('');
 

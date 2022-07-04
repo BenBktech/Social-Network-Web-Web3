@@ -1,7 +1,8 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction, Provider } from "react";
 import { hasMetamask } from "../utils/hasMetamask";
 import { ethers } from "ethers";
 import { string } from "hardhat/internal/core/params/argumentTypes";
+import { ReactElement } from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ type Props = {
 
 type Context = {
   account: string | null;
-  provider: any[] | null;
+  provider: ethers.providers.Provider | null;
   setAccount: Function;
 };
 
@@ -23,10 +24,10 @@ const initialContext: Context = {
 
 const EthersContext = React.createContext(initialContext)
 
-export const EthersProvider = (props: { children: string }) => {
+export const EthersProvider = (props: { children: ReactElement }) => {
 
     const [account, setAccount] = useState<string | null>(null);
-    const [provider, setProvider] = useState<any | null>(null);
+    const [provider, setProvider] = useState<ethers.providers.Provider | null>(null);
 
     useEffect(() => {
         if(hasMetamask()) {
