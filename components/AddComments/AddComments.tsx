@@ -8,7 +8,7 @@ import Link from "next/link";
 import useEthersProvider from "../../hook/useEthersProvider";
 import Layout from "../Layout/Layout";
 import {useRouter} from 'next/router'
-const contractAddress = "0x7a1d0D760cAB0443d856216a6E01C2735609EcAe";
+const contractAddress = "0xE6D7730a085c0DAABD161Ce863e21bf97132191e";
 
 const AddComments = (props: {comment: string, setComment: Function, postId: string, getPostAndComments: Function}) => {
 

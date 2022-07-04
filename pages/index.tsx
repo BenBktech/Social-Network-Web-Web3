@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import Contract from '../artifacts/contracts/SocialNetwork.sol/SocialNetwork.json';
 import { ethers } from 'ethers'
 
-const contractAddress = "0x7a1d0D760cAB0443d856216a6E01C2735609EcAe";
+const contractAddress = "0xE6D7730a085c0DAABD161Ce863e21bf97132191e";
 
 const Home: NextPage = () => {
 

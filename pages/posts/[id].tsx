@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import classes from '../../components/Posts/Posts.module.css'
 import { ArrowUpIcon, ArrowDownIcon, ChatIcon } from '@chakra-ui/icons'
 import AddComments from '../../components/AddComments/AddComments';
-const contractAddress = "0x7a1d0D760cAB0443d856216a6E01C2735609EcAe";
+const contractAddress = "0xE6D7730a085c0DAABD161Ce863e21bf97132191e";
 
 const Post = () => {
 
@@ -36,6 +36,61 @@ const Post = () => {
         const comments = await contract.getResponsesOfAPost(id);
         setPost(post);
         setComments(comments);
+    }
+
+    const vote = async(arg: string, id: string) => {
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
+        if(arg === 'up') {
+            try {
+                let transaction = await contract.voteUp(parseInt(id));
+                await transaction.wait();
+                toast({
+                    title: 'Congratulations',
+                    description: 'You have voted for this post !',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    variant: 'top-accent',
+                })
+                getPostAndComments();
+            }
+            catch(err: any) {                
+                toast({
+                    title: 'Error',
+                    description: 'An error occured.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    variant: 'top-accent',
+                })
+            }
+        }
+        if(arg === 'down') {
+            try {
+                let transaction = await contract.voteDown(parseInt(id));
+                await transaction.wait();
+                toast({
+                    title: 'Congratulations',
+                    description: 'You have voted for this post !',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    variant: 'top-accent',
+                })
+                getPostAndComments();
+            }
+            catch(err: any) {
+                toast({
+                    title: 'Error',
+                    description: 'An error occured.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    variant: 'top-accent',
+                })
+            }
+        }
     }
 
     return (
