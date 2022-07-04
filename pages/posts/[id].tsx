@@ -14,7 +14,7 @@ const contractAddress = "0xE6D7730a085c0DAABD161Ce863e21bf97132191e";
 const Post = () => {
 
     const router = useRouter()
-    const { id } = router.query
+    const id: any = router.query
 
     const toast = useToast()
     const { account, setAccount, provider } = useEthersProvider();
@@ -31,64 +31,68 @@ const Post = () => {
     }, [account])
 
     const getPostAndComments = async() => {
-        const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
-        const post = await contract.allThePosts(id);
-        const comments = await contract.getResponsesOfAPost(id);
-        setPost(post);
-        setComments(comments);
+        if(provider) {
+            const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
+            const post = await contract.allThePosts(id);
+            const comments = await contract.getResponsesOfAPost(id);
+            setPost(post);
+            setComments(comments);
+        }
     }
 
     const vote = async(arg: string, id: string) => {
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
-        if(arg === 'up') {
-            try {
-                let transaction = await contract.voteUp(parseInt(id));
-                await transaction.wait();
-                toast({
-                    title: 'Congratulations',
-                    description: 'You have voted for this post !',
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
-                getPostAndComments();
+        if(provider) {
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
+            if(arg === 'up') {
+                try {
+                    let transaction = await contract.voteUp(parseInt(id));
+                    await transaction.wait();
+                    toast({
+                        title: 'Congratulations',
+                        description: 'You have voted for this post !',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                    getPostAndComments();
+                }
+                catch(err: any) {                
+                    toast({
+                        title: 'Error',
+                        description: 'An error occured.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                }
             }
-            catch(err: any) {                
-                toast({
-                    title: 'Error',
-                    description: 'An error occured.',
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
-            }
-        }
-        if(arg === 'down') {
-            try {
-                let transaction = await contract.voteDown(parseInt(id));
-                await transaction.wait();
-                toast({
-                    title: 'Congratulations',
-                    description: 'You have voted for this post !',
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
-                getPostAndComments();
-            }
-            catch(err: any) {
-                toast({
-                    title: 'Error',
-                    description: 'An error occured.',
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
+            if(arg === 'down') {
+                try {
+                    let transaction = await contract.voteDown(parseInt(id));
+                    await transaction.wait();
+                    toast({
+                        title: 'Congratulations',
+                        description: 'You have voted for this post !',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                    getPostAndComments();
+                }
+                catch(err: any) {
+                    toast({
+                        title: 'Error',
+                        description: 'An error occured.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                }
             }
         }
     }

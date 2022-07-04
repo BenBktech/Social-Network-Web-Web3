@@ -14,56 +14,58 @@ const Posts = (props: {getDatas: Function, allPosts: any[]}) => {
     const { account, setAccount, provider } = useEthersProvider();
 
     const vote = async(arg: string, id: string) => {
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
-        if(arg === 'up') {
-            try {
-                let transaction = await contract.voteUp(parseInt(id));
-                await transaction.wait();
-                toast({
-                    title: 'Congratulations',
-                    description: 'You have voted for this post !',
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
-                props.getDatas()
+        if(provider) {
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
+            if(arg === 'up') {
+                try {
+                    let transaction = await contract.voteUp(parseInt(id));
+                    await transaction.wait();
+                    toast({
+                        title: 'Congratulations',
+                        description: 'You have voted for this post !',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                    props.getDatas()
+                }
+                catch(err: any) {                
+                    toast({
+                        title: 'Error',
+                        description: 'An error occured.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                }
             }
-            catch(err: any) {                
-                toast({
-                    title: 'Error',
-                    description: 'An error occured.',
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
-            }
-        }
-        if(arg === 'down') {
-            try {
-                let transaction = await contract.voteDown(parseInt(id));
-                await transaction.wait();
-                toast({
-                    title: 'Congratulations',
-                    description: 'You have voted for this post !',
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
-                props.getDatas()
-            }
-            catch(err: any) {
-                toast({
-                    title: 'Error',
-                    description: 'An error occured.',
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                    variant: 'top-accent',
-                })
+            if(arg === 'down') {
+                try {
+                    let transaction = await contract.voteDown(parseInt(id));
+                    await transaction.wait();
+                    toast({
+                        title: 'Congratulations',
+                        description: 'You have voted for this post !',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                    props.getDatas()
+                }
+                catch(err: any) {
+                    toast({
+                        title: 'Error',
+                        description: 'An error occured.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        variant: 'top-accent',
+                    })
+                }
             }
         }
     }

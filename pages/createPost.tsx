@@ -1,5 +1,5 @@
 import Layout from "../components/Layout/Layout";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import type { NextPage } from 'next'
 import { Flex, Text, Textarea, Button, useToast, Spinner, UseToastOptions } from "@chakra-ui/react";
 import useEthersProvider from "../hook/useEthersProvider";
@@ -18,7 +18,7 @@ const CreatePost: NextPage = () => {
     const [post, setPost] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const handleInputChange = (e: Event) => {
+    const handleInputChange = (e: SyntheticEvent<EventTarget>) => {
         let inputValue = (e.target as HTMLTextAreaElement).value;
         setPost(inputValue)
     }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Dispatch, SetStateAction, Provider } from "react";
 import { hasMetamask } from "../utils/hasMetamask";
-import { ethers } from "ethers";
+import { ethers, providers } from "ethers";
 import { string } from "hardhat/internal/core/params/argumentTypes";
 import { ReactElement } from "react";
 
@@ -10,7 +10,7 @@ type Props = {
 
 type Context = {
   account: string | null;
-  provider: ethers.providers.Provider | null;
+  provider: providers.Provider | null;
   setAccount: Function;
 };
 
@@ -21,6 +21,10 @@ const initialContext: Context = {
         throw new Error('setAccount function must be overridden');
   },
 };
+
+// interface Window {
+//     ethereum: any
+// }
 
 const EthersContext = React.createContext(initialContext)
 

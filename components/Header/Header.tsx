@@ -15,7 +15,7 @@ const Header = () => {
         if(hasMetamask()) {
             setIsLoading(true)
             if(provider) {
-                let network: number | null;
+                let network: any;
                 network = await provider.getNetwork()
                 if(network !== null) {
                     if(network.chainId !== 1) {
@@ -88,7 +88,7 @@ const Header = () => {
                     align="center"
                 >
                     <Link href="/">All the posts</Link>
-                    <Link ml="1rem" href="/createPost">Create Post</Link>
+                    <Link ml="1rem" href="/CreatePost">Create Post</Link>
                 </Flex>
             )}
         </>
